@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Building Shape Analysis Toolkit</title>
+    <link
+      href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Building Shape Analysis Toolkit</h1>
+      <p>
+        Upload a GeoJSON file of building footprints (EPSG:4326) to compute area,
+        roundness, centroid coordinates, and major axis orientation.
+      </p>
+    </header>
+
+    <main>
+      <section class="controls">
+        <label class="file-input">
+          <span>Select GeoJSON file</span>
+          <input type="file" id="fileInput" accept=".geojson,.json" />
+        </label>
+        <button id="downloadCsv" disabled>Download CSV</button>
+      </section>
+
+      <section class="stats">
+        <h2>Global Statistics</h2>
+        <div id="statsContainer"></div>
+      </section>
+
+      <section class="map-section">
+        <div id="map"></div>
+      </section>
+
+      <section class="notes">
+        <h2>How it works</h2>
+        <ul>
+          <li>Area is calculated on the ellipsoid and reported in square meters.</li>
+          <li>
+            Roundness is computed as <code>4π × area / perimeter²</code> where 1.0
+            represents a perfect circle.
+          </li>
+          <li>
+            Major axis orientation is derived from principal component analysis in a
+            local UTM projection and is reported as azimuth clockwise from North.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/proj4@2.11.0/dist/proj4.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
+    <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
